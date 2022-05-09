@@ -7,3 +7,4 @@ export {default as Register} from './register/Register';
 export {default as MyItems} from './myItems/MyItems';
 export {default as Sell} from './sell/Sell';
 export {default as Explore} from './explore/Explore';
+export {default as NFT} from './NFT/NFT';

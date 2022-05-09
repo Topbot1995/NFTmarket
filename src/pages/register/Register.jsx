@@ -46,6 +46,7 @@ const Register = () => {
 
   const formik = useFormik({
     initialValues: {
+      photo: null,
       fullname: "",
       nickname: "",
       email: "",
@@ -65,18 +66,16 @@ const Register = () => {
   }
 
   const registerUser = async () => {
-    // const formData = new FormData();
-    // formData.append("file", file);
-    // formData.append("fileName", fileName);
-    
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("fileName", fileName);
+    formData.append("fullname", formik.values.fullname);
+    formData.append("nickname", formik.values.nickname);
+    formData.append("email", formik.values.email);
+    formData.append("password", formik.values.password);
+
     try {
-      const { accessToken } = await api.post('/users/register', {
-        fullname: formik.values.fullname,
-        nickname: formik.values.nickname,
-        email: formik.values.email,
-        password: formik.values.password,
-      });
-            
+      const { accessToken } = await api.post('/users/register', formData);      
       navigate('/login');
       return false;
     } catch (error) {
@@ -96,8 +95,8 @@ const Register = () => {
         <form className='register-writeForm' autoComplete='off' onSubmit={formik.handleSubmit}>
           <div className="register-formGroup">
             <label>Upload</label>
-            <input type="file" className='custom-file-input' name="photo" 
-              onChange={(e)=>{changeImg(e)}} />
+            <input type="file" className='custom-file-input' name="photo"
+              onChange={(e) => { changeImg(e) }} value={formik.photo} />
           </div>
           <div className="register-formGroup">
             <label>Full Name</label>
@@ -120,7 +119,7 @@ const Register = () => {
           </div>
           {formik.errors.password ? <div className="error-div">ERROR! {formik.errors.password}</div> : null}
           <div className="register-button">
-            <button className='register-writeButton' type="button" onClick={()=>{registerUser()}}>register</button>
+            <button className='register-writeButton' type="button" onClick={() => { registerUser() }}>register</button>
             <Link to="/login">
               <button className='reg-login-writeButton' >Login</button>
             </Link>

@@ -7,12 +7,7 @@ import Bids from '../../components/bids/Bids'
 const Explore = () => {
     return (
         <div className='profile section__padding'>
-        <div className="profile-top">
-          <div className="profile-banner">
-            <img src={profile_banner} alt="banner" />
-          </div>
-        </div>
-        <div className="profile-bottom">
+        <div className="profile-bottom" style={{marginTop:'150px'}}>
           <div className="profile-bottom-input">
             <input type="text" placeholder='Search Item here' />
             <select>
@@ -22,7 +17,7 @@ const Explore = () => {
               <option>High to Low</option>
             </select>
           </div>
-          <Bids   title="Item" />
+          <Bids   title="All Items" />
         </div>
       </div>
     )

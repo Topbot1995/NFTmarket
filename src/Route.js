@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Home, Profile, Item, Create, Login, Register, MyItems, Sell, Explore } from './pages'
+import { Home, Profile, Item, Create, Login, Register, MyItems, Sell, Explore, NFT } from './pages'
 import { AuthContext } from "./context/AuthProvider";
 import { Routes, Route,  useNavigate, useLocation} from 'react-router-dom';
 import { PUBLICROUTES } from "./config";
@@ -23,7 +23,8 @@ const ProtectedRoute = ({ isPrivate = false, element: Element, ...rest }) => {
             <Route path="/" exact element={<Home />} />
             <Route path="/explore" exact element={<Explore />} />
             <Route path="/register" element={<Register />} />            
-            <Route path=":item/:id" element={<Item />} />
+            <Route path="/nft/:id" element={<NFT />} />
+            <Route path="post/:id" element={<Item />} />
             <Route path="/create" element={<Create />} />
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/login" element={<Login />} />
