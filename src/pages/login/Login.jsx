@@ -8,9 +8,11 @@ import { storeAuthToken } from '../../utils/authToken';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from "../../context/AuthProvider";
 import jwt_decode from "jwt-decode";
-
+import { toast } from 'react-toastify';
 
 const Login = () => {
+
+  const notify = (message, flag = false) => flag ? toast.success(message) : toast.error(message);
 
   const { userData, setUserData } = useContext(AuthContext)
 
@@ -48,21 +50,6 @@ const Login = () => {
     handleChange: values => {
     },
     handleSubmit: async () => {
-      if (formik.errors) {
-        return false;
-      }
-      try {
-        const { accessToken, refreshToken } = await api.post('/users/login', {
-          email: formik.values.username,
-          password: formik.values.password,
-        });
-        storeAuthToken(refreshToken);
-        setIsLogin(true);
-        navigate('/');
-        return false;
-      } catch (error) {
-        console.log(error);
-      }
     }
   })
 
@@ -80,7 +67,7 @@ const Login = () => {
       //console.log(userData);
       navigate('/');
       return false;
-    } catch (error) {
+    } catch (error) {      
       console.log(error);
     }
 
